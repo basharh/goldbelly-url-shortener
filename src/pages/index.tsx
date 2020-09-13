@@ -1,5 +1,14 @@
-import Head from 'next/head';
+import { css } from '@emotion/core';
 
 export default function Home() {
-  return <div>homepage</div>;
+  return (
+    <div
+      css={css`
+        padding: 32px;
+        background-color: #ccc;
+      `}
+    >
+      homepage
+    </div>
+  );
 }
