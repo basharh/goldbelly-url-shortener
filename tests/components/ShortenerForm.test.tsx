@@ -1,20 +1,41 @@
 import '@testing-library/jest-dom';
 import ShortenerForm from '../../src/components/ShortenerForm';
-import renderer from 'react-test-renderer';
-import { render, waitFor, screen } from '@testing-library/react';
+import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 describe('<ShortenerForm />', () => {
-  it.skip('renders a shortener form', () => {
-    const component = renderer.create(<ShortenerForm />);
-    const tree = component.toJSON();
-    expect(tree).toMatchSnapshot();
+  it('displays a form', async () => {
+    const { debug } = render(
+      <ShortenerForm
+        onSubmit={() => {
+          // noop
+        }}
+      />
+    );
+    await waitFor(() => screen.getByRole('form'));
+    expect(screen.getByRole('form')).toBeVisible();
   });
 
-  it('displays a form', async () => {
-    render(<ShortenerForm />);
+  it('should not submit with valid input', async () => {
+    const onSubmit = jest.fn();
+    render(<ShortenerForm onSubmit={onSubmit} />);
 
     await waitFor(() => screen.getByRole('form'));
 
-    expect(screen.getByRole('form')).toBeVisible();
+    userEvent.click(screen.getByRole('button'));
+
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it('should submit with valid input', async () => {
+    const onSubmit = jest.fn();
+    render(<ShortenerForm onSubmit={onSubmit} />);
+
+    await waitFor(() => screen.getByRole('form'));
+
+    userEvent.type(screen.getByLabelText('Url'), 'something!');
+    userEvent.click(screen.getByRole('button'));
+
+    await waitFor(() => expect(onSubmit).toHaveBeenCalled());
   });
 });
