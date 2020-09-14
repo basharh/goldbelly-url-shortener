@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ShortenerForm /> renders a shortener form 1`] = `
+<div>
+  <form>
+    <input
+      name="url"
+      type="text"
+    />
+    <input
+      name="slug"
+      type="text"
+    />
+    <input
+      name="submit"
+      type="submit"
+    />
+  </form>
+</div>
+`;

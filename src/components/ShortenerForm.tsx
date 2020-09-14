@@ -1,7 +1,7 @@
 const ShortenerForm: React.FC = () => {
   return (
     <div>
-      <form>
+      <form name="shorten-form">
         <input name="url" type="text" />
         <input name="slug" type="text" />
         <input name="submit" type="submit" />
