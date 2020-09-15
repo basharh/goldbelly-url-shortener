@@ -32,6 +32,7 @@ const Home: React.FC<HomeProps> = ({ links }) => {
       >
         <ShortenerForm
           onSubmit={async ({ url, slug }: ShortenerFormData) => {
+            slug = slug.length == 0 ? undefined : slug;
             await api.addLink(url, slug);
             Router.replace('/'); // refresh page
           }}
