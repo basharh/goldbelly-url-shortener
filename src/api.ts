@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosInstance } from 'axios';
 
 // http://api.bely.me/docs/1.0/links/index.html
 export interface Link {
@@ -7,8 +7,20 @@ export interface Link {
   url: string;
 }
 
-const API_URL = 'http://api.bely.me/';
+export class API {
+  client: AxiosInstance;
 
-export function getLinks(): Link[] {
-  return [];
+  constructor() {
+    const baseURL = process.browser ? '/api' : 'http://api.bely.me/';
+    this.client = axios.create({
+      baseURL,
+      headers: { 'GB-Access-Token': process.env.GB_ACCESS_TOKEN }
+    });
+  }
+
+  async getLinks(): Promise<Link[]> {
+    const { data } = await this.client.get('/links');
+    console.log('data:', data);
+    return data;
+  }
 }

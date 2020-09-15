@@ -1,3 +1,4 @@
+import { css } from '@emotion/core';
 import { Link } from '../api';
 
 interface LinksListProps {
@@ -14,7 +15,22 @@ const LinksList: React.FC<LinksListProps> = ({ links }) => {
   ));
 
   return (
-    <table>
+    <table
+      css={css`
+        td,
+        th {
+          border: 1px solid #999;
+          padding: 0.5rem;
+        }
+      `}
+    >
+      <thead>
+        <tr>
+          <th>short url</th>
+          <th>slug</th>
+          <th>url</th>
+        </tr>
+      </thead>
       <tbody>{rows}</tbody>
     </table>
   );
