@@ -12,6 +12,8 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ links }) => {
   const api = new API();
 
+  const refresh = () => Router.replace('/');
+
   return (
     <div
       css={css`
@@ -34,10 +36,16 @@ const Home: React.FC<HomeProps> = ({ links }) => {
           onSubmit={async ({ url, slug }: ShortenerFormData) => {
             slug = slug.length == 0 ? undefined : slug;
             await api.addLink(url, slug);
-            Router.replace('/'); // refresh page
+            refresh();
           }}
         />
-        <LinksList links={links} />
+        <LinksList
+          links={links}
+          onDelete={async ({ slug }: Link) => {
+            await api.removeLink(slug);
+            refresh();
+          }}
+        />
       </div>
     </div>
   );

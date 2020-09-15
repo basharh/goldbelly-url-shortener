@@ -32,4 +32,9 @@ export class API {
 
     return data;
   }
+
+  async removeLink(slug: string): Promise<Link[]> {
+    const { data } = await this.client.delete(`/links/${slug}`);
+    return data;
+  }
 }
