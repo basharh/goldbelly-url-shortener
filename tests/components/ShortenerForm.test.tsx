@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import ShortenerForm from '../../src/components/ShortenerForm';
-import { render, waitFor, screen, fireEvent } from '@testing-library/react';
+import { render, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 describe('<ShortenerForm />', () => {
@@ -24,7 +24,7 @@ describe('<ShortenerForm />', () => {
 
     userEvent.click(screen.getByRole('button'));
 
-    expect(onSubmit).not.toHaveBeenCalled();
+    await waitFor(() => expect(onSubmit).not.toHaveBeenCalled());
   });
 
   it('should submit with valid input', async () => {
