@@ -1,3 +1,4 @@
+import Router from 'next/router';
 import { GetServerSideProps } from 'next';
 import { css } from '@emotion/core';
 import ShortenerForm, { ShortenerFormData } from '../components/ShortenerForm';
@@ -9,17 +10,20 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ links }) => {
+  const api = new API();
+
   return (
     <div>
       <div
         css={css`
-          padding: 32px;
+          padding: 12px;
           background-color: #ccc;
         `}
       >
         <ShortenerForm
-          onSubmit={(data: ShortenerFormData) => {
-            // noop
+          onSubmit={async ({ url, slug }: ShortenerFormData) => {
+            await api.addLink(url, slug);
+            Router.replace('/'); // refresh page
           }}
         />
       </div>

@@ -23,4 +23,13 @@ export class API {
     console.log('data:', data);
     return data;
   }
+
+  async addLink(url: string, slug: string): Promise<Link[]> {
+    const { data } = await this.client.post('/links', {
+      url,
+      slug
+    });
+
+    return data;
+  }
 }
