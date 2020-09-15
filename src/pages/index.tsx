@@ -13,11 +13,21 @@ const Home: React.FC<HomeProps> = ({ links }) => {
   const api = new API();
 
   return (
-    <div>
+    <div
+      css={css`
+        padding: 40px 40px;
+        width: 100vw;
+        height: 100vh;
+        background-color: #ddd;
+      `}
+    >
       <div
         css={css`
-          padding: 12px;
-          background-color: #ccc;
+          width: 75%;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         `}
       >
         <ShortenerForm
@@ -26,8 +36,6 @@ const Home: React.FC<HomeProps> = ({ links }) => {
             Router.replace('/'); // refresh page
           }}
         />
-      </div>
-      <div>
         <LinksList links={links} />
       </div>
     </div>

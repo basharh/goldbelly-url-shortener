@@ -27,9 +27,9 @@ const ShortenerForm: React.FC<ShortenerFormProps> = ({ onSubmit }) => {
   return (
     <div
       css={css`
-        form > div {
-          margin: 20px 0px;
-        }
+        align-self: flex-start;
+        width: 70%;
+        padding: 10px 0;
       `}
     >
       <form onSubmit={formik.handleSubmit} name="shortener-form">
@@ -42,25 +42,42 @@ const ShortenerForm: React.FC<ShortenerFormProps> = ({ onSubmit }) => {
             onBlur={formik.handleBlur}
             value={formik.values.url}
             error={formik.touched.url && !!formik.errors.url}
-            helperText={formik.touched.url && formik.errors.url}
+            helperText={(formik.touched.url && formik.errors.url) || ' '}
+            fullWidth
+            variant="outlined"
           />
         </div>
-        <div>
-          <TextField
-            id="slug"
-            name="slug"
-            label="Slug"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.slug}
-            error={formik.touched.slug && !!formik.errors.slug}
-            helperText={formik.touched.slug && formik.errors.slug}
-          />
-        </div>
-        <div>
-          <Button variant="contained" type="submit">
-            Submit
-          </Button>
+        <div
+          css={css`
+            display: flex;
+            > div:first-child {
+              margin-right: 20px;
+            }
+          `}
+        >
+          <div
+            css={css`
+              flex: auto;
+            `}
+          >
+            <TextField
+              id="slug"
+              name="slug"
+              label="Slug"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.slug}
+              error={formik.touched.slug && !!formik.errors.slug}
+              helperText={(formik.touched.slug && formik.errors.slug) || ' '}
+              fullWidth
+              variant="outlined"
+            />
+          </div>
+          <div>
+            <Button variant="contained" type="submit" size="medium">
+              Submit
+            </Button>
+          </div>
         </div>
       </form>
     </div>

@@ -17,6 +17,7 @@ const LinksList: React.FC<LinksListProps> = ({ links }) => {
   return (
     <table
       css={css`
+        width: 100%;
         td,
         th {
           border: 1px solid #999;
