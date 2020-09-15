@@ -35,19 +35,26 @@ const Home: React.FC<HomeProps> = ({ links }) => {
           align-items: center;
         `}
       >
-        <ShortenerForm
-          onSubmit={async ({ url, slug }: ShortenerFormData) => {
-            setError('');
-            slug = slug.length == 0 ? undefined : slug;
-            api
-              .addLink(url, slug)
-              .then(() => refresh())
-              .catch((error) => {
-                setError(error);
-              });
-          }}
-          message={error}
-        />
+        <div
+          css={css`
+            width: 100%;
+            margin-bottom: 40px;
+          `}
+        >
+          <ShortenerForm
+            onSubmit={async ({ url, slug }: ShortenerFormData) => {
+              setError('');
+              slug = slug.length == 0 ? undefined : slug;
+              api
+                .addLink(url, slug)
+                .then(() => refresh())
+                .catch((error) => {
+                  setError(error);
+                });
+            }}
+            message={error}
+          />
+        </div>
         <LinksList
           links={links}
           onDelete={async ({ slug }: Link) => {

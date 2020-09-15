@@ -92,7 +92,7 @@ const ShortenerForm: React.FC<ShortenerFormProps> = ({ message, onSubmit }) => {
       </div>
       <div
         css={css`
-          color: red;
+          color: #cc0000;
         `}
       >
         {message}
