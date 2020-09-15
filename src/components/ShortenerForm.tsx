@@ -9,10 +9,11 @@ export interface ShortenerFormData {
 }
 
 interface ShortenerFormProps {
+  message: string;
   onSubmit: (data: ShortenerFormData) => void;
 }
 
-const ShortenerForm: React.FC<ShortenerFormProps> = ({ onSubmit }) => {
+const ShortenerForm: React.FC<ShortenerFormProps> = ({ message, onSubmit }) => {
   const formik = useFormik({
     initialValues: { url: '', slug: '' },
     validationSchema: Yup.object({
@@ -30,56 +31,72 @@ const ShortenerForm: React.FC<ShortenerFormProps> = ({ onSubmit }) => {
         align-self: flex-start;
         width: 70%;
         padding: 10px 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
       `}
     >
-      <form onSubmit={formik.handleSubmit} name="shortener-form">
-        <div>
-          <TextField
-            id="url"
-            name="url"
-            label="Url"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.url}
-            error={formik.touched.url && !!formik.errors.url}
-            helperText={(formik.touched.url && formik.errors.url) || ' '}
-            fullWidth
-            variant="outlined"
-          />
-        </div>
-        <div
-          css={css`
-            display: flex;
-            > div:first-child {
-              margin-right: 20px;
-            }
-          `}
-        >
-          <div
-            css={css`
-              flex: auto;
-            `}
-          >
+      <div
+        css={css`
+          width: 100%;
+        `}
+      >
+        <form onSubmit={formik.handleSubmit} name="shortener-form">
+          <div>
             <TextField
-              id="slug"
-              name="slug"
-              label="Slug"
+              id="url"
+              name="url"
+              label="Url"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.slug}
-              error={formik.touched.slug && !!formik.errors.slug}
-              helperText={(formik.touched.slug && formik.errors.slug) || ' '}
+              value={formik.values.url}
+              error={formik.touched.url && !!formik.errors.url}
+              helperText={(formik.touched.url && formik.errors.url) || ' '}
               fullWidth
               variant="outlined"
             />
           </div>
-          <div>
-            <Button variant="contained" type="submit" size="medium">
-              Submit
-            </Button>
+          <div
+            css={css`
+              display: flex;
+              > div:first-child {
+                margin-right: 20px;
+              }
+            `}
+          >
+            <div
+              css={css`
+                flex: auto;
+              `}
+            >
+              <TextField
+                id="slug"
+                name="slug"
+                label="Slug"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.slug}
+                error={formik.touched.slug && !!formik.errors.slug}
+                helperText={(formik.touched.slug && formik.errors.slug) || ' '}
+                fullWidth
+                variant="outlined"
+              />
+            </div>
+            <div>
+              <Button variant="contained" type="submit" size="medium">
+                Submit
+              </Button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
+      <div
+        css={css`
+          color: red;
+        `}
+      >
+        {message}
+      </div>
     </div>
   );
 };

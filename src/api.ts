@@ -20,17 +20,21 @@ export class API {
 
   async getLinks(): Promise<Link[]> {
     const { data } = await this.client.get('/links');
-    console.log('data:', data);
     return data;
   }
 
   async addLink(url: string, slug: string): Promise<Link[]> {
-    const { data } = await this.client.post('/links', {
-      url,
-      slug
-    });
-
-    return data;
+    return this.client
+      .post('/links', {
+        url,
+        slug
+      })
+      .then(({ data }) => data)
+      .catch(({ response: { data } }) => {
+        if (data && data.errors && data.errors.url)
+          return Promise.reject('url has already been taken');
+        else return Promise.reject('request failed!');
+      });
   }
 
   async removeLink(slug: string): Promise<Link[]> {

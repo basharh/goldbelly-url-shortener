@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Router from 'next/router';
 import { GetServerSideProps } from 'next';
 import { css } from '@emotion/core';
@@ -11,12 +12,14 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ links }) => {
   const api = new API();
+  const [error, setError] = useState(' ');
 
   const refresh = () => Router.replace('/');
 
   return (
     <div
       css={css`
+        font-family: Helvetica;
         padding: 40px 40px;
         width: 100vw;
         height: 100vh;
@@ -34,10 +37,16 @@ const Home: React.FC<HomeProps> = ({ links }) => {
       >
         <ShortenerForm
           onSubmit={async ({ url, slug }: ShortenerFormData) => {
+            setError('');
             slug = slug.length == 0 ? undefined : slug;
-            await api.addLink(url, slug);
-            refresh();
+            api
+              .addLink(url, slug)
+              .then(() => refresh())
+              .catch((error) => {
+                setError(error);
+              });
           }}
+          message={error}
         />
         <LinksList
           links={links}
