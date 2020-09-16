@@ -1,5 +1,3 @@
-import React from 'react';
-import renderer from 'react-test-renderer';
 import { API } from '../api';
 
 // create an API that mimics the response for the api
@@ -26,6 +24,8 @@ describe('api', () => {
       expect(link.slug).toBe('shorty');
     });
 
-    test('should reject on POST /links error', () => {});
+    test.skip('should reject on POST /links error', () => {
+      /* TODO */
+    });
   });
 });
