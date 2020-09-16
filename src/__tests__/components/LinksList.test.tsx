@@ -8,8 +8,8 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { Link } from '../../src/api';
-import LinksList from '../../src/components/LinksList';
+import { Link } from '../../api';
+import LinksList from '../../components/LinksList';
 
 const links: Link[] = [
   {
@@ -26,7 +26,14 @@ const links: Link[] = [
 
 describe('<LinksList />', () => {
   it('displays a list of links', async () => {
-    render(<LinksList links={links} />);
+    render(
+      <LinksList
+        links={links}
+        onDelete={() => {
+          /* noop */
+        }}
+      />
+    );
 
     links.forEach(({ short_url, slug, url }) => {
       const row = screen.getByText(short_url).closest('tr');

@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import ShortenerForm from '../../src/components/ShortenerForm';
+import ShortenerForm from '../../components/ShortenerForm';
 import { render, waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -7,6 +7,7 @@ describe('<ShortenerForm />', () => {
   it('displays a form', async () => {
     const { debug } = render(
       <ShortenerForm
+        message=""
         onSubmit={() => {
           // noop
         }}
@@ -18,7 +19,7 @@ describe('<ShortenerForm />', () => {
 
   it('should not submit with valid input', async () => {
     const onSubmit = jest.fn();
-    render(<ShortenerForm onSubmit={onSubmit} />);
+    render(<ShortenerForm onSubmit={onSubmit} message="" />);
 
     await waitFor(() => screen.getByRole('form'));
 
@@ -29,7 +30,7 @@ describe('<ShortenerForm />', () => {
 
   it('should submit with valid input', async () => {
     const onSubmit = jest.fn();
-    render(<ShortenerForm onSubmit={onSubmit} />);
+    render(<ShortenerForm onSubmit={onSubmit} message="" />);
 
     await waitFor(() => screen.getByRole('form'));
 

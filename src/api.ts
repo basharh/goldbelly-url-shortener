@@ -23,7 +23,7 @@ export class API {
     return data;
   }
 
-  async addLink(url: string, slug: string): Promise<Link[]> {
+  async addLink(url: string, slug: string): Promise<Link> {
     return this.client
       .post('/links', {
         url,
@@ -37,8 +37,7 @@ export class API {
       });
   }
 
-  async removeLink(slug: string): Promise<Link[]> {
-    const { data } = await this.client.delete(`/links/${slug}`);
-    return data;
+  async removeLink(slug: string): Promise<void> {
+    await this.client.delete(`/links/${slug}`);
   }
 }

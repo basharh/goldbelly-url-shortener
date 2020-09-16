@@ -59,14 +59,12 @@ const ShortenerForm: React.FC<ShortenerFormProps> = ({ message, onSubmit }) => {
           <div
             css={css`
               display: flex;
-              > div:first-child {
-                margin-right: 20px;
-              }
             `}
           >
             <div
               css={css`
                 flex: auto;
+                margin-right: 20px;
               `}
             >
               <TextField
